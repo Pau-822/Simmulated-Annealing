@@ -20,19 +20,19 @@ public class SimulatedAnnealingService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SimulatedAnnealingService.class);
 
-	public List<Item> process(MultipartFile file, String delimeter) {
+	public String process(MultipartFile file, String delimeter,double maxWeight) {
 
 		try {
 
 			List<Item> items = this.mapFileToList(file, delimeter);
 
-			Vehicle vehicle=new Vehicle(10);
+			Vehicle vehicle=new Vehicle(maxWeight);
 			double val= this.findBestSolution(items,vehicle.getTotalWeight());
 			
 			
 			LOGGER.info("MaxUtility: "+val);
 			
-			return items;
+			return String.format("MaxUtility: %.3g%n", val);
 
 
 		} catch (Exception ex) {
